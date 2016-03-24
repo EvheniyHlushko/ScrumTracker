@@ -1,0 +1,36 @@
+﻿@model StickersWeb.Models.Team.TeamModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h3>Hello</h3>
+
+<div class="container">
+    <div class="row tracker">
+        <div class="col-md-3 teams">
+            <input type="text" name="name" id="searchTeamInput" data-autocomplete-source='@Url.Action("AutocompleteSearch", "Home")'/>
+            @*<button class="btn">Search</button>*@
+            @*<input type="submit" id="search" value="Поиск" />*@
+            
+            @Html.Partial("~/Views/Team/_ListTeamsPartial.cshtml")
+
+        </div>
+        <div class="col-md-3 userteampos">
+            <input type="hidden" Id="selectedTeam" value="." />
+            <div id="userTeamPos">
+
+                @Html.Partial("~/Views/Team/_ListUsersTeamPosPartial.cshtml")
+            </div>
+            @Html.Hidden("GetUserTeamPos", Url.Action("GetUserTeamPostions"))
+            @Html.Hidden("AddUserToTeam", Url.Action("AddUserToTeam"))
+        </div>
+        <div class="col-md-3 users">
+            <div id="users">
+                 @Html.Partial("~/Views/Team/_ListUsersPartial.cshtml")
+            </div>
+            @Html.Hidden("GetUsers", Url.Action("GetUsers"))
+            <button class="btn" Id="findUser">Find user</button>
+        </div>
+    </div>
+</div>

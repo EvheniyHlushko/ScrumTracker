@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "_ListUsersTeamPosPartial";
+}
+
+<ul>
+    
+    @foreach (var userTeamPos in Model.UserTeamPositions)
+    {
+        <li class="userTeamPosItem">
+            @userTeamPos.User.Email
+            <input type="hidden" class="teamId" value="@userTeamPos.Team.Id"/>
+            <input type="hidden" class="userId" value="@userTeamPos.Team.Id" />
+        </li>
+    }
+</ul>
+
+
+

@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "_ListTeamsPartial";
+}
+
+<ul id="teamList">
+    @foreach (var team in Model.Teams)
+    {
+    <li class="teamItem">
+        @team.Name
+        <input type="hidden" class="teamId" value="@team.Id" />
+    </li>
+
+    }
+
+</ul>
+
+
+

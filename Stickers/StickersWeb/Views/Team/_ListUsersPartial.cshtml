@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "_ListUsersPartial";
+}
+
+<ul id="usersList">
+    @foreach (var user in Model.Users)
+    {
+    <li>
+        @user.Email
+        <input type="hidden" class="userId" value="@user.Id" />
+    </li>
+    }
+</ul>
+
+
+
