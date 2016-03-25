@@ -11,8 +11,8 @@ namespace Contracts.IManager
         void UpdateUser(UserDto user);
         IEnumerable<UserDto> GetAllUsers();
         IEnumerable<UserDto> GetUsersByEmail(String email);
-        UserDto Authenticate(string login, string password);
-        void Registration(UserDto user);
-        void SetPassword(UserDto user);
+        //UserDto Authenticate(string login, string password);
+        //void Registration(UserDto user);
+        //void SetPassword(UserDto user);
     }
 }

@@ -8,29 +8,36 @@
 
 <div class="container">
     <div class="row tracker">
-        <div class="col-md-3 teams">
-            <input type="text" name="name" id="searchTeamInput" data-autocomplete-source='@Url.Action("AutocompleteSearch", "Home")'/>
-            @*<button class="btn">Search</button>*@
-            @*<input type="submit" id="search" value="Поиск" />*@
-            
-            @Html.Partial("~/Views/Team/_ListTeamsPartial.cshtml")
+        <div class="list--wrap col-md-4">
+            <div class="teams text-center">
+                <input type="text" name="name" id="searchTeamInput" data-autocomplete-source='@Url.Action("AutocompleteSearch", "Home")' />
+                @*<button class="btn">Search</button>*@
+                @*<input type="submit" id="search" value="Поиск" />*@
 
-        </div>
-        <div class="col-md-3 userteampos">
-            <input type="hidden" Id="selectedTeam" value="." />
-            <div id="userTeamPos">
+                @Html.Partial("~/Views/Team/_ListTeamsPartial.cshtml")
 
-                @Html.Partial("~/Views/Team/_ListUsersTeamPosPartial.cshtml")
             </div>
-            @Html.Hidden("GetUserTeamPos", Url.Action("GetUserTeamPostions"))
-            @Html.Hidden("AddUserToTeam", Url.Action("AddUserToTeam"))
         </div>
-        <div class="col-md-3 users">
-            <div id="users">
-                 @Html.Partial("~/Views/Team/_ListUsersPartial.cshtml")
+        <div class="list--wrap col-md-4">
+            <div class="userteampos">
+                <input type="hidden" Id="selectedTeam" value="." />
+                <div id="userTeamPos">
+
+                    @Html.Partial("~/Views/Team/_ListUsersTeamPosPartial.cshtml")
+                </div>
+                @Html.Hidden("GetUserTeamPos", Url.Action("GetUserTeamPostions"))
+                @Html.Hidden("AddUserToTeam", Url.Action("AddUserToTeam"))
             </div>
-            @Html.Hidden("GetUsers", Url.Action("GetUsers"))
-            <button class="btn" Id="findUser">Find user</button>
+        </div>
+        <div class="list--wrap col-md-4" >
+            <div class="users">
+                <div id="users text-center">
+                    <input type="text" name="name" id="searchUserInput" data-autocomplete-source='@Url.Action("AutocompleteSearch", "Home")' />
+                    
+                    @Html.Partial("~/Views/Team/_ListUsersPartial.cshtml")
+                </div>
+                @Html.Hidden("GetUsers", Url.Action("GetUsers"))
+            </div>
         </div>
     </div>
 </div>

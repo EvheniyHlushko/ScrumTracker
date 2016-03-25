@@ -1,4 +1,8 @@
-﻿body {
+﻿@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,300);
+
+
+body {
+    font-family: 'Source Sans Pro';
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -31,6 +35,56 @@ textarea {
 }
 
 .tracker ul {
-    border: 2px solid red;
-    min-height: 150px;
+    min-height: 500px;
+    margin: 0;
+    padding: 10px;
+
+}
+.tracker ul li {
+    list-style-type: none;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+.meta {
+    margin: 0 10px 10px 10px;
+}
+.tracker ul li:hover {
+    cursor: pointer;
+}
+.tracker ul li.teamItem, .tracker ul li.userItem, ul li.userTeamPosItem {
+    
+    border: 2px solid #026689;
+    background: #fff;
+}
+
+.tracker ul li.teamItem .edit-team i {
+    margin-top: 10px;
+    color: #004573;
+    margin-left: 5px;
+    font-size: 20px;
+}
+
+.teams, .users, .userteampos {
+    padding: 0;
+    
+    /*border: 2px solid #026689;*/
+    border-radius: 10px;
+    background: #dad2bf;
+
+}
+
+.teams input, .users input {
+    margin: 10px 0;
+    height: 40px;
+    /*border: 2px solid #026689;*/
+    /*border-width: 2px 0;*/
+    font-size: 20px;
+    padding-left: 5px;
+    width: 95%;
+    border-bottom-style: none;
+    border-radius: 5px;
+}
+.tracker ul li.userItem .user-title, .tracker ul li.userTeamPosItem .userTeamPos-title {
+    height: 20px;
+    background: #026689;
 }

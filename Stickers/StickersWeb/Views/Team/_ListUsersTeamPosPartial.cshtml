@@ -8,9 +8,33 @@
     @foreach (var userTeamPos in Model.UserTeamPositions)
     {
         <li class="userTeamPosItem">
-            @userTeamPos.User.Email
             <input type="hidden" class="teamId" value="@userTeamPos.Team.Id"/>
-            <input type="hidden" class="userId" value="@userTeamPos.Team.Id" />
+            <input type="hidden" class="userId" value="@userTeamPos.Team.Id"/>
+            <div class="userTeamPos-title col-md-12">
+
+            </div>
+            <div class="meta">
+                <div class="row">
+                    <div class="col-md-5">
+                        <h4>Email</h4>
+                        <span>@userTeamPos.User.Email</span>
+                    </div>
+                    <div class="col-md-3 ">
+                        <h4>Name</h4>
+                        <span>@userTeamPos.User.UserName</span>
+                    </div>
+                    @*<div class="col-md-3">
+                        <h4>Created</h4>
+                        <span>25.03.2015</span>
+                    </div>*@
+                    @*<div class="col-md-3 text-right">
+                    <div class="edit-team">
+                        <a href="#"><i class="fa  fa-pencil-square-o"></i></a>
+                        <a href="#"><i class="fa  fa-times"></i></a>
+                    </div>
+                </div>*@
+                </div>
+            </div>
         </li>
     }
 </ul>

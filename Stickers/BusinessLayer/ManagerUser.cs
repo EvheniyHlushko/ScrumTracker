@@ -60,16 +60,16 @@ namespace BusinessLayer
 
         //}
 
-        public void Registration(UserDto user)
-        {
-            user.Password = CalculateHash(user.Password, user.Login);
-            AddUser(user);
-        }
+        //public void Registration(UserDto user)
+        //{
+        //    user.Password = CalculateHash(user.Password, user.Login);
+        //    AddUser(user);
+        //}
 
-        public void SetPassword(UserDto user)
-        {
-            user.Password = CalculateHash(user.Password, user.Login);
-            UpdateUser(user);
-        }
+        //public void SetPassword(UserDto user)
+        //{
+        //    user.Password = CalculateHash(user.Password, user.Login);
+        //    UpdateUser(user);
+        //}
     }
 }
