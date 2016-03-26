@@ -40,12 +40,12 @@ namespace StickersWeb.Controllers
             return View(model);
         }
 
-        public ActionResult GetUsers()
-        {
-            var users = _userManager.GetUsersByEmail("Admin@email.domain");
-            TeamModel model = new TeamModel() { Users = users };
-            return PartialView("~/Views/Team/_ListUsersPartial.cshtml", model);
-        }
+        //public ActionResult GetUsers()
+        //{
+        //    var users = _userManager.GetUsersByEmail("Admin@email.domain");
+        //    TeamModel model = new TeamModel() { Users = users };
+        //    return PartialView("~/Views/Team/_ListUsersPartial.cshtml", model);
+        //}
 
         public ActionResult GetUserTeamPostions(string id)
         {
@@ -76,6 +76,37 @@ namespace StickersWeb.Controllers
             }
             return Json(operationStatus, JsonRequestBehavior.AllowGet);
 
+        }
+
+        public ActionResult AutocompleteTeamSearch(string term)
+        {
+            var model = _teamManager.GetAllTeams().Where(x => x.Name.Contains(term))
+                .Select(x => new {value = x.Name})
+                .Distinct();
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult SearchTeams(string term)
+        {
+            var teams = _teamManager.GetAllTeams().Where(a => a.Name.Contains(term));
+            TeamModel model = new TeamModel() { Teams = teams };
+            return PartialView("~/Views/Team/_ListTeamsPartial.cshtml", model);
+        }
+
+
+        public ActionResult AutocompleteUserSearch(string term)
+        {
+            var model = _userManager.GetAllUsers().Where(x => x.Email.Contains(term))
+                .Select(x => new { value = x.Email })
+                .Distinct();
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult SearchUsers(string term)
+        {
+            var users = _userManager.GetAllUsers().Where(a => a.Email.Contains(term));
+            TeamModel model = new TeamModel() { Users = users };
+            return PartialView("~/Views/Team/_ListUsersPartial.cshtml", model);
         }
 
     }

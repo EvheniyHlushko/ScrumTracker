@@ -10,11 +10,13 @@
     <div class="row tracker">
         <div class="list--wrap col-md-4">
             <div class="teams text-center">
-                <input type="text" name="name" id="searchTeamInput" data-autocomplete-source='@Url.Action("AutocompleteSearch", "Home")' />
+                <input type="text" name="name" id="searchTeamInput" data-autocomplete-source='@Url.Action("AutocompleteTeamSearch", "Team")' />
                 @*<button class="btn">Search</button>*@
                 @*<input type="submit" id="search" value="Поиск" />*@
-
-                @Html.Partial("~/Views/Team/_ListTeamsPartial.cshtml")
+                @Html.Hidden("GetTeamsByTerm", Url.Action("SearchTeams"))
+                <div id="teams">
+                    @Html.Partial("~/Views/Team/_ListTeamsPartial.cshtml")
+                </div>
 
             </div>
         </div>
@@ -30,13 +32,13 @@
             </div>
         </div>
         <div class="list--wrap col-md-4" >
-            <div class="users">
-                <div id="users text-center">
-                    <input type="text" name="name" id="searchUserInput" data-autocomplete-source='@Url.Action("AutocompleteSearch", "Home")' />
-                    
+            <div class="users text-center">
+                <input type="text" name="name" id="searchUserInput" data-autocomplete-source='@Url.Action("AutocompleteUserSearch", "Team")' />
+                
+                <div id="users">
                     @Html.Partial("~/Views/Team/_ListUsersPartial.cshtml")
                 </div>
-                @Html.Hidden("GetUsers", Url.Action("GetUsers"))
+                @Html.Hidden("GetUsersByTerm", Url.Action("SearchUsers"))
             </div>
         </div>
     </div>

@@ -1,11 +1,18 @@
 $(document).ready(function () {
 
-    $('#usersList li').css({ 'z-index': 100 }).draggable({
-        'opacity': '0.5',
-        'revert': true,
-        'cursor': 'pointer'
-    });
+    function doDraggable() {
+        $('#usersList li').css({ 'z-index': 100 }).draggable({
+            'opacity': '0.5',
+            'revert': true,
+            'cursor': 'pointer'
+        });
+    }
 
+    doDraggable();
+
+    $(document).ajaxComplete(function () {
+        doDraggable();
+    });
     //$("#usersList li").draggable({ helper: 'clone' });
 
     // Gets All users 
@@ -51,16 +58,38 @@ $(document).ready(function () {
         });
     }
 
-    $('.teamItem').click(function () {
+    function getTeamsByTerm(value) {
+        var actionUrl = $('#GetTeamsByTerm').val();
+        $.ajax({
+            type: 'GET',
+            url: actionUrl,
+            data: { term: value },
+            success: function(data) {
+                $('#teams').html(data);
+            }
+        });
+    }
+
+    function getUsersByTerm(value) {
+        var actionUrl = $('#GetUsersByTerm').val();
+        $.ajax({
+            type: 'GET',
+            url: actionUrl,
+            data: { term: value },
+            success: function (data) {
+                $('#users').html(data);
+            }
+        });
+    }
+
+    $(document).on('click', '.teamItem',function () {
         var teamId = $(this).children('.teamId').val();
         getUserTeamPos(teamId);
     });
 
-    $('#findUser').click(function () {
-        getUsers();
+    $('.userItem').click(function () {
+        alert('ok');
     });
-
-
     $('#userTeamPos').droppable({
         drop: function (event, ui) {
             var userId = $(ui.draggable).children('.userId').val();
@@ -68,5 +97,34 @@ $(document).ready(function () {
             addUserToTeam(userId, teamId);
         }
     });
+    /*Autocomplete Teams*/
+    $("[data-autocomplete-source]#searchTeamInput").each(function () {
+        var target = $(this);
+        target.autocomplete({ source: target.attr("data-autocomplete-source") });
+    });
+
+    $('#searchTeamInput').keypress(function (e) {
+        if (e.which === 13) {
+            var value = $('#searchTeamInput').val();
+            getTeamsByTerm(value);
+            $("[data-autocomplete-source]#searchTeamInput").autocomplete('close');
+            return false;
+        }
+    });
+    /*Autocomplete Users*/
+    $("[data-autocomplete-source]#searchUserInput").each(function () {
+        var target = $(this);
+        target.autocomplete({ source: target.attr("data-autocomplete-source") });
+    });
+
+    $('#searchUserInput').keypress(function (e) {
+        if (e.which === 13) {
+            var value = $('#searchUserInput').val();
+            getUsersByTerm(value);
+            $("[data-autocomplete-source]#searchUserInput").autocomplete('close');
+            return false;
+        }
+    });
 
 });
+
