@@ -33,13 +33,23 @@ textarea {
     margin: 0;
     padding: 0;
 }
-
-.tracker ul {
-    min-height: 500px;
+/*.tracker .list-wrap {
+    height: 700px;
+}*/
+#teamList, #usersList, #userTeamPosList {
     margin: 0;
     padding: 10px;
+    height: 350px;
+}
+.teams, .users, .userteampos {
+    padding: 0;
+    height: 500px;
+    /*border: 2px solid #026689;*/
+    border-radius: 10px;
+    background: #dad2bf;
 
 }
+
 .tracker ul li {
     list-style-type: none;
     margin-bottom: 15px;
@@ -64,14 +74,7 @@ textarea {
     font-size: 20px;
 }
 
-.teams, .users, .userteampos {
-    padding: 0;
-    
-    /*border: 2px solid #026689;*/
-    border-radius: 10px;
-    background: #dad2bf;
 
-}
 
 .teams input, .users input {
     margin: 10px 0;

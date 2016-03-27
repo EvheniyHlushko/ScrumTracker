@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Contracts.IManager;
 using DataLayer.Entities;
 using DTO.Entities;
+using PagedList;
 using StickersWeb.Models;
 using StickersWeb.Models.Team;
 
@@ -17,6 +18,8 @@ namespace StickersWeb.Controllers
         private readonly IManagerTeam _teamManager;
         private readonly IManagerUserTeamPos _userTeamPosManager;
 
+        private IPagedList<TeamDto> _teams; 
+
         public TeamController(IManagerUser userManager, IManagerTeam teamManager, IManagerUserTeamPos userTeamPosManager)
         {
             _userManager = userManager;
@@ -26,10 +29,10 @@ namespace StickersWeb.Controllers
 
         public ActionResult Index()
         {
-
-            var users = _userManager.GetAllUsers();
-            var teams = _teamManager.GetAllTeams();
-            var userTeamPositions = _userTeamPosManager.GetAllUserTeamPos();
+           
+            var users = _userManager.GetAllUsers().ToPagedList(1,5);
+            var teams = _teamManager.GetAllTeams().ToPagedList(1, 2);
+            var userTeamPositions = _userTeamPosManager.GetAllUserTeamPos().ToPagedList(1, 5);
 
             //User user = users.First();
             //Team team = teams.First();
@@ -50,17 +53,12 @@ namespace StickersWeb.Controllers
         public ActionResult GetUserTeamPostions(string id)
         {
 
-            var userTeamPositions = _userTeamPosManager.GetAllUserTeamPos().Where(x => x.Team.Id == new Guid(id));
+            var userTeamPositions = _userTeamPosManager.GetAllUserTeamPos().Where(x => x.Team.Id == new Guid(id)).ToPagedList(1, 5);
             TeamModel model = new TeamModel() { UserTeamPositions = userTeamPositions };
             return PartialView("~/Views/Team/_ListUsersTeamPosPartial.cshtml", model);
         }
 
-        public ActionResult GetTeams()
-        {
-            var teams = _teamManager.GetAllTeams();
-            TeamModel model = new TeamModel() { Teams = teams };
-            return PartialView("~/Views/Team/_ListTeamsPartial.cshtml", model);
-        }
+      
 
         public ActionResult AddUserToTeam(string userId, string teamId)
         {
@@ -85,10 +83,29 @@ namespace StickersWeb.Controllers
                 .Distinct();
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult SearchTeams(string term)
+        public ActionResult GetTeams(string term, int? page)
         {
-            var teams = _teamManager.GetAllTeams().Where(a => a.Name.Contains(term));
+            int pageSize = 2;
+            int pageNumber = (page ?? 1);
+            var teams = _teamManager.GetAllTeams().ToPagedList(pageNumber, pageSize);
+            
+            TeamModel model = new TeamModel() { Teams = teams };
+            return PartialView("~/Views/Team/_ListTeamsPartial.cshtml", model);
+        }
+        public ActionResult SearchTeams(string term, int? page)
+        
+        {
+            int pageSize = 2;
+            int pageNumber = (page ?? 1);
+            IPagedList<TeamDto> teams;
+            if (term != null)
+                teams = _teamManager.GetAllTeams().Where(a => a.Name.Contains(term)).ToPagedList(pageNumber, pageSize);
+            else
+            {
+                teams = _teamManager.GetAllTeams().ToPagedList(pageNumber, pageSize);
+            }
+           
+            ViewBag.Filter = term;
             TeamModel model = new TeamModel() { Teams = teams };
             return PartialView("~/Views/Team/_ListTeamsPartial.cshtml", model);
         }
@@ -104,7 +121,7 @@ namespace StickersWeb.Controllers
 
         public ActionResult SearchUsers(string term)
         {
-            var users = _userManager.GetAllUsers().Where(a => a.Email.Contains(term));
+            var users = _userManager.GetAllUsers().Where(a => a.Email.Contains(term)).ToPagedList(1, 5);
             TeamModel model = new TeamModel() { Users = users };
             return PartialView("~/Views/Team/_ListUsersPartial.cshtml", model);
         }

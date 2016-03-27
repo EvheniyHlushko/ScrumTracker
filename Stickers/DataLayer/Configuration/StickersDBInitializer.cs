@@ -147,7 +147,30 @@ namespace DataLayer
                 Name = "M1T4",
                 Description = "Description",
             });
-
+            context.Teams.Add(new Team()
+            {
+                Id = Guid.NewGuid(),
+                Name = "M2T1",
+                Description = "Description",
+            });
+            context.Teams.Add(new Team()
+            {
+                Id = Guid.NewGuid(),
+                Name = "M2T2",
+                Description = "Description",
+            });
+            context.Teams.Add(new Team()
+            {
+                Id = Guid.NewGuid(),
+                Name = "M2T3",
+                Description = "Description",
+            });
+            context.Teams.Add(new Team()
+            {
+                Id = Guid.NewGuid(),
+                Name = "J1T1",
+                Description = "Description",
+            });
             context.Projects.Add(new Project
             {
                 Id = Guid.NewGuid(),

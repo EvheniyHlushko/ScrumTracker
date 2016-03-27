@@ -1,4 +1,6 @@
-﻿
+﻿@using PagedList
+@using PagedList.Mvc
+
 @{
     ViewBag.Title = "_ListTeamsPartial";
 }
@@ -6,36 +8,49 @@
 <ul id="teamList">
     @foreach (var team in Model.Teams)
     {
-        <li class="teamItem">
-          
-                    <div class="meta">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h4>Name</h4>
-                                <span>@team.Name</span>
-                            </div>
-                            <div class="col-md-3">
-                                <h4>Projecs</h4>
-                                <span><a href="#">Count(Link)</a></span>
-                            </div>
-                            <div class="col-md-3">
-                                <h4>Created</h4>
-                                <span>25.03.2015</span>
-                            </div>
-                            <div class="col-md-3 text-right">
-                                <div class="edit-team">
-                                    <a href="#"><i class="fa  fa-pencil-square-o"></i></a>
-                                    <a href="#"><i class="fa  fa-times"></i></a>
-                                </div>
-                            </div>
-                        </div>
+    <li class="teamItem">
+
+        <div class="meta">
+            <div class="row">
+                <div class="col-md-3">
+                    <h4>Name</h4>
+                    <span>@team.Name</span>
+                </div>
+                <div class="col-md-3">
+                    <h4>Projecs</h4>
+                    <span><a href="#">Count(Link)</a></span>
+                </div>
+                <div class="col-md-3">
+                    <h4>Created</h4>
+                    <span>25.03.2015</span>
+                </div>
+                <div class="col-md-3 text-right">
+                    <div class="edit-team">
+                        <a href="#"><i class="fa  fa-pencil-square-o"></i></a>
+                        <a href="#"><i class="fa  fa-times"></i></a>
                     </div>
-            <input type="hidden" class="teamId" value="@team.Id"/>
-        </li>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" class="teamId" value="@team.Id" />
+    </li>
 
     }
 
 </ul>
+@if (Model.Teams.PageCount > 1)
+{
+    @Html.PagedListPager((IPagedList)Model.Teams,
+        page => Url.Action("SearchTeams", new
+        {
+            page,
+            term = ViewBag.Filter
+        }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.PageNumbersOnly,
+            new AjaxOptions
+            {
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "Get",
+                UpdateTargetId = "teams"
+            }))
 
-
-
+}

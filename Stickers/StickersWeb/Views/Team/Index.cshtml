@@ -8,7 +8,7 @@
 
 <div class="container">
     <div class="row tracker">
-        <div class="list--wrap col-md-4">
+        <div class="list-wrap col-md-4">
             <div class="teams text-center">
                 <input type="text" name="name" id="searchTeamInput" data-autocomplete-source='@Url.Action("AutocompleteTeamSearch", "Team")' />
                 @*<button class="btn">Search</button>*@
@@ -20,7 +20,7 @@
 
             </div>
         </div>
-        <div class="list--wrap col-md-4">
+        <div class="list-wrap col-md-4">
             <div class="userteampos">
                 <input type="hidden" Id="selectedTeam" value="." />
                 <div id="userTeamPos">
@@ -31,7 +31,7 @@
                 @Html.Hidden("AddUserToTeam", Url.Action("AddUserToTeam"))
             </div>
         </div>
-        <div class="list--wrap col-md-4" >
+        <div class="list-wrap col-md-4" >
             <div class="users text-center">
                 <input type="text" name="name" id="searchUserInput" data-autocomplete-source='@Url.Action("AutocompleteUserSearch", "Team")' />
                 
