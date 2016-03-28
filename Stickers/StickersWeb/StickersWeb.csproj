@@ -193,6 +193,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OperationStatus.cs" />
+    <Compile Include="Models\Team\EditTeamModel.cs" />
     <Compile Include="Models\Team\TeamModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -297,6 +298,7 @@
     <Content Include="Views\Team\_ListTeamsPartial.cshtml" />
     <Content Include="Views\Team\_ListUsersPartial.cshtml" />
     <Content Include="Views\Team\_ListUsersTeamPosPartial.cshtml" />
+    <Content Include="Views\Team\_EditTeamModalPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

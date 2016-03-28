@@ -106,6 +106,8 @@ namespace StickersWeb.Controllers
             }
            
             ViewBag.Filter = term;
+            ViewBag.Page = pageNumber;
+
             TeamModel model = new TeamModel() { Teams = teams };
             return PartialView("~/Views/Team/_ListTeamsPartial.cshtml", model);
         }
@@ -124,6 +126,33 @@ namespace StickersWeb.Controllers
             var users = _userManager.GetAllUsers().Where(a => a.Email.Contains(term)).ToPagedList(1, 5);
             TeamModel model = new TeamModel() { Users = users };
             return PartialView("~/Views/Team/_ListUsersPartial.cshtml", model);
+        }
+
+        public ActionResult TeamInfo(string id)
+        {
+            var team = _teamManager.GetAllTeams().First(x => x.Id == new Guid(id));
+            EditTeamModel model = new EditTeamModel() { Id = team.Id, Name = team.Name, Description = team.Description };
+            return PartialView("~/Views/Team/_EditTeamModalPartial.cshtml", model);
+        }
+
+        public ActionResult EditTeam(EditTeamModel model)
+        {
+
+            OperationStatus operationStatus = new OperationStatus();
+            if (ModelState.IsValid)
+            {
+                var team = _teamManager.GetAllTeams().First(x => x.Id == model.Id);
+                team.Name = model.Name;
+                team.Description = model.Description;
+                _teamManager.UpdateTeam(team);
+                operationStatus.Status = true;
+            }
+            else
+            {
+                operationStatus.Status = false;
+                operationStatus.Message = "Something wrong";
+            }
+            return Json(operationStatus, JsonRequestBehavior.AllowGet);
         }
 
     }

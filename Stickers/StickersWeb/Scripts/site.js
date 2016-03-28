@@ -58,12 +58,12 @@ $(document).ready(function () {
         });
     }
 
-    function getTeamsByTerm(value) {
+    function getTeamsByTerm(value, pageNumber) {
         var actionUrl = $('#GetTeamsByTerm').val();
         $.ajax({
             type: 'GET',
             url: actionUrl,
-            data: { term: value },
+            data: { term: value, page: pageNumber },
             success: function(data) {
                 $('#teams').html(data);
             }
@@ -125,6 +125,41 @@ $(document).ready(function () {
             return false;
         }
     });
+
+
+    $(document).on('click','.teamEdit', function (e) {
+
+        e.preventDefault();
+        e.stopPropagation();
+        $.get(this.href, function (data) {
+            $('#dialogContent').html(data);
+            $('#modDialog').modal('show');
+        });
+    });
+
+    $(document).on('submit','#EditTeamForm', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function(data) {
+                if (data.Status === true) {
+                    $('#modDialog').modal('toggle');
+                    getTeamsByTerm($('#viewbagFilter').val(), $('#viewbagPage').val());
+                } else {
+                    $('#editTeamError').html(data.Message);
+                }
+            }
+        });
+    });
+
+    //$(document).on('click', '#test', function (e) {
+
+    //    e.preventDefault();
+    //    alert('ok');
+    //});
 
 });
 

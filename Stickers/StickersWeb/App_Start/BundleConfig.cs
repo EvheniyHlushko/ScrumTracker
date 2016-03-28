@@ -14,7 +14,7 @@ namespace StickersWeb
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
             bundles.Add(new ScriptBundle("~/bundles/jquery-ui").Include(
-                        "~/Scripts/jquery-ui-1.11.4.js"));
+                        "~/Scripts/jquery-ui-{version}.js"));
             bundles.Add(new ScriptBundle("~/bundles/site").Include(
                         "~/Scripts/site.js"));
 

@@ -10,7 +10,7 @@
     <div class="row tracker">
         <div class="list-wrap col-md-4">
             <div class="teams text-center">
-                <input type="text" name="name" id="searchTeamInput" data-autocomplete-source='@Url.Action("AutocompleteTeamSearch", "Team")' />
+                <input type="text" name="name" id="searchTeamInput" data-autocomplete-source='@Url.Action("AutocompleteTeamSearch", "Team")'/>
                 @*<button class="btn">Search</button>*@
                 @*<input type="submit" id="search" value="Поиск" />*@
                 @Html.Hidden("GetTeamsByTerm", Url.Action("SearchTeams"))
@@ -22,7 +22,7 @@
         </div>
         <div class="list-wrap col-md-4">
             <div class="userteampos">
-                <input type="hidden" Id="selectedTeam" value="." />
+                <input type="hidden" Id="selectedTeam" value="."/>
                 <div id="userTeamPos">
 
                     @Html.Partial("~/Views/Team/_ListUsersTeamPosPartial.cshtml")
@@ -31,10 +31,10 @@
                 @Html.Hidden("AddUserToTeam", Url.Action("AddUserToTeam"))
             </div>
         </div>
-        <div class="list-wrap col-md-4" >
+        <div class="list-wrap col-md-4">
             <div class="users text-center">
-                <input type="text" name="name" id="searchUserInput" data-autocomplete-source='@Url.Action("AutocompleteUserSearch", "Team")' />
-                
+                <input type="text" name="name" id="searchUserInput" data-autocomplete-source='@Url.Action("AutocompleteUserSearch", "Team")'/>
+
                 <div id="users">
                     @Html.Partial("~/Views/Team/_ListUsersPartial.cshtml")
                 </div>
@@ -42,4 +42,8 @@
             </div>
         </div>
     </div>
+</div>
+
+<div id="modDialog" class="modal fade">
+    <div id="dialogContent" class="modal-dialog"></div>
 </div>

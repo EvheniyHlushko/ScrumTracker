@@ -8,36 +8,41 @@
 <ul id="teamList">
     @foreach (var team in Model.Teams)
     {
-    <li class="teamItem">
+        <li class="teamItem">
 
-        <div class="meta">
-            <div class="row">
-                <div class="col-md-3">
-                    <h4>Name</h4>
-                    <span>@team.Name</span>
-                </div>
-                <div class="col-md-3">
-                    <h4>Projecs</h4>
-                    <span><a href="#">Count(Link)</a></span>
-                </div>
-                <div class="col-md-3">
-                    <h4>Created</h4>
-                    <span>25.03.2015</span>
-                </div>
-                <div class="col-md-3 text-right">
-                    <div class="edit-team">
-                        <a href="#"><i class="fa  fa-pencil-square-o"></i></a>
-                        <a href="#"><i class="fa  fa-times"></i></a>
+            <div class="meta">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>Name</h4>
+                        <span>@team.Name</span>
+                    </div>
+                    <div class="col-md-3">
+                        <h4>Projecs</h4>
+                        <span><a href="#">Count(Link)</a></span>
+                    </div>
+                    <div class="col-md-3">
+                        <h4>Created</h4>
+                        <span>25.03.2015</span>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <div class="edit-team">
+                            @*@LinkExtensions.ActionLink(Html, team.Name, "TeamInfo", new { id = team.Id }, new { @class = "compItem" })*@
+                            <a href="@Url.Action("TeamInfo", "Team", new {id = team.Id})" class="teamEdit"><i class="fa  fa-pencil-square-o"></i></a>
+                            <a href="#"><i class="fa  fa-times"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <input type="hidden" class="teamId" value="@team.Id" />
-    </li>
+            <input type="hidden" class="teamId" value="@team.Id"/>
+        </li>
 
     }
 
 </ul>
+<input type="hidden" value="@ViewBag.Filter" id="viewbagFilter"/>
+<input type="hidden" value="@ViewBag.Page" id="viewbagPage" />
+
+
 @if (Model.Teams.PageCount > 1)
 {
     @Html.PagedListPager((IPagedList)Model.Teams,
